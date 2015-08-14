@@ -9,8 +9,8 @@ This is an initial release.  More features and testing are in the works.
 
 ```
 <div class="contact-list" ui-list-view="contact in contacts" options="listOptions">
-	<p class="name"><strong>{{ contact.name }}</strong></p>
-	<div class="email">{{ contact.email }}</div>
+    <p class="name"><strong>{{ contact.name }}</strong></p>
+    <div class="email">{{ contact.email }}</div>
 </div>
 ```
 
