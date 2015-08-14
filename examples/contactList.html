@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../dist/ui-listView.css"/>
+		
+		<style>
+			.contact p {
+				margin: 0 0 10px 0;
+			}
+			.contact-list .panel-body {
+				padding: 0;
+			}
+			.contact-list .ui-list-view {
+				border: none;
+			}
+			
+			.name, .email {
+				word-wrap: break-word;
+			}
+			
+		</style>
+		
+	</head>
+	<body ng-app="app" ng-controller="SampleApp">
+		
+		<div class="container">
+			<div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+				
+				<h2>Contact List</h2>
+				
+				<div class="contact-list panel panel-default">
+					
+					<div class="panel-heading">
+						<input class="form-control" ng-model="search.name" placeholder="Search Name.."/>
+					</div>
+					
+					<div class="panel-body">
+						<div class="contact" ui-list-view="contact in contacts | filter:search">
+							<p class="name"><strong>{{ contact.name }}</strong></p>
+							<div class="email">{{ contact.email }}</div>
+						</div>
+					</div>
+					
+				</div>	
+			</div>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+		<script src="../dist/ui-listView.min.js"></script>
+		<script src="contactList.js"></script>
+	</body>
+</html>
