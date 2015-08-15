@@ -171,7 +171,8 @@ angular.module("sl.ui-listView", [
             
             this.visibleRange = {
                 index: firstIndex,
-                length: lastIndex - firstIndex
+                length: lastIndex - firstIndex,
+                total: rows.length
             };
             return range.index !== this.visibleRange.index || range.length !== this.visibleRange.length;
         }
@@ -199,6 +200,7 @@ angular.module("sl.ui-listView", [
             this.updateAnchor();
             if (this.updateRange()) {
                 this.updateCells();
+                this.options.range = this.visibleRange;
                 return true;
             }
             return false;
@@ -379,7 +381,7 @@ angular.module("sl.ui-listView", [
                     return listView.setViewport(scrollTop, rawElement.clientHeight);
                 }
                 
-                function updateOptions(options, oldOptions) {
+                function updateOptions (options, oldOptions) {
                     if (oldOptions) {
                         if (oldOptions.style) {
                             element.removeClass("ui-list-view-" + oldOptions.style);
@@ -390,8 +392,16 @@ angular.module("sl.ui-listView", [
                     }
                 }
                 
+                function addDefaultOptions (options) {
+                    for (var key in defaultOptions) {
+                        if (!options.hasOwnProperty(key) || defaultOptions.hasOwnProperty(key)) {
+                            options[key] = defaultOptions[key];
+                        }
+                    }
+                }
+                
                 $scope.$watch("options", (options, oldOptions) => {
-                    options = angular.extend(angular.copy(defaultOptions), options || {});
+                    addDefaultOptions(options);
                     options.listView = listView;
                     listView.options = options;
                     updateOptions(options, oldOptions);
