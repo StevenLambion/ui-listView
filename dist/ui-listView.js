@@ -200,7 +200,8 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
 
                 this.visibleRange = {
                     index: firstIndex,
-                    length: lastIndex - firstIndex
+                    length: lastIndex - firstIndex,
+                    total: rows.length
                 };
                 return range.index !== this.visibleRange.index || range.length !== this.visibleRange.length;
             }
@@ -444,6 +445,7 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
                 }
 
                 $scope.$watch("options", function (options, oldOptions) {
+                    options = options || {};
                     addDefaultOptions(options);
                     options.listView = listView;
                     listView.options = options;

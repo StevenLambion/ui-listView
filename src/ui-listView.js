@@ -401,6 +401,7 @@ angular.module("sl.ui-listView", [
                 }
                 
                 $scope.$watch("options", (options, oldOptions) => {
+                    options = options || {};
                     addDefaultOptions(options);
                     options.listView = listView;
                     listView.options = options;
