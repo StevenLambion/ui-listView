@@ -1,0 +1,20 @@
+{
+  "name": "listView-pages",
+  "version": "0.0.1",
+  "homepage": "https://github.com/StevenLambion/ui-listView",
+  "authors": [
+    "Steven Lambion <stevenlambion@gmail.com>"
+  ],
+  "description": "GH pages for ui-listView",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ui-listView": "~0.0.1"
+  }
+}

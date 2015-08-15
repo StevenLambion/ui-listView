@@ -1,0 +1,39 @@
+{
+  "name": "ui-listView",
+  "version": "0.0.1",
+  "description": "An efficient list view for angular.",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/StevenLambion/ui-listView.git"
+  },
+  "keywords": [
+    "angular",
+    "listview",
+    "list",
+    "paging"
+  ],
+  "author": "Steven Lambion",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StevenLambion/ui-listView/issues"
+  },
+  "homepage": "https://github.com/StevenLambion/ui-listView#readme",
+  "devDependencies": {
+    "bower": "^1.4.1",
+    "del": "^1.2.1",
+    "event-stream": "^3.3.1",
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.7.0",
+    "gulp-babel": "^5.2.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-debug": "^2.1.0",
+    "gulp-iife": "0.0.7",
+    "gulp-jshint": "^1.11.2",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "jshint-stylish": "^2.0.1",
+    "run-sequence": "^1.1.2"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "ui-listView",
+  "version": "0.0.1",
+  "main": [
+    "dist/ui-listView.min.js",
+    "dist/ui-listView.css"
+  ],
+  "keywords": [
+    "angular",
+    "listview",
+    "list",
+    "paging"
+  ],
+  "authors": [
+    "Steven Lambion"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/StevenLambion/ui-listView",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4"
+  },
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "6b1f0ef7f16452ee1d28d88342d2537a8b70cdd5"
+  },
+  "_source": "git://github.com/StevenLambion/ui-listView.git",
+  "_target": "~0.0.1",
+  "_originalSource": "ui-listView",
+  "_direct": true
+}

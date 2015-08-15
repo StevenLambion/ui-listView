@@ -243,3 +243,21 @@ a {
 @media screen and (max-width: 42em) {
   .site-footer {
     font-size: 0.9rem; } }
+
+.contact p {
+    margin: 0 0 10px 0;
+}
+.contact-list .panel-body {
+    padding: 0;
+}
+.contact-list .ui-list-view {
+    border: none;
+}
+
+.name, .email {
+    word-wrap: break-word;
+}
+
+html {
+  font-size: 16px !important;
+}

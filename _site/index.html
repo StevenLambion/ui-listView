@@ -7,9 +7,16 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="bower_components/ui-listView/dist/ui-listView.css" media="screen">
+    <!--<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">-->
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
   </head>
-  <body>
+  <body ng-app="app">
     <section class="page-header">
       <h1 class="project-name">ui-listView</h1>
       <h2 class="project-tagline">An efficient, scrollable, dynamic list view for angular.</h2>
@@ -20,29 +27,73 @@
 
     <section class="main-content">
       <p>
-        ui-listView is an efficient, scalable list for large data sets.  You simply provide a height and use it similarly to ng-repeat with all the angular binding you want.  Even with a list of 1000 it won't slow down.
+        ui-listView is an efficient, scalable list for large data sets.  You simply provide a height and use it similarly to ng-repeat with all the angular bindings you want.  Even with a list of 1000 it won't slow down.
       </p>
 
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating pages manually</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+      <h3>
+        <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation
+      </h3>
+      <p>
+        You can add ui-listView through the bower package manager.
+      </p>
+      <code>
+        bower install ui-listView [--save]
+      </code>
+      
+      <h3>
+        <a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples
+      </h3>
+      
+      <div ng-controller="Examples">
+        <h4>Basic Usage</h4>
+        <div class="country" ui-list-view="country in countries" style="height:300px; font-size:14px;">
+            {{ country.name }}
+        </div>
+        <p>
+          <pre><code ng-non-bindable>
+            &lt;div class="contact" ui-list-view="country in countries"&gt;
+              {{ country.name }}
+            &lt;/div&gt;
+          </code></pre>
+        </p>
+        
+        <h4>Advanced Usage</h4>
+        <label>
+          <input type="checkbox" ng-model="hideEmail"/> Hide Email
+        </label>
+        <div class="contact-list panel panel-default">    
+            <div class="panel-heading">
+                <input class="form-control" ng-model="search.name" placeholder="Search Name.."/>
+            </div>
+            
+            <div class="panel-body">
+                <div class="contact" ui-list-view="contact in contacts | filter:search">
+                    <div class="name"><strong>{{ contact.name }}</strong></div>
+                    <div class="email text-muted" ng-if="!hideEmail">{{ contact.email }}</div>
+                </div>
+            </div>
+            
+        </div>  
+        <p>
+          <pre><code ng-non-bindable>
+            &lt;div class="contact-list panel panel-default"&gt;
+                
+                &lt;div class="panel-heading"&gt;
+                    &lt;input class="form-control" ng-model="search.name" placeholder="Search Name.."/&gt;
+                &lt;/div&gt;
+                
+                &lt;div class="panel-body"&gt;
+                    &lt;div class="contact" ui-list-view="contact in contacts | filter:search"&gt;
+                        &lt;p class="name"&gt;&lt;strong&gt;{{ contact.name }}&lt;/strong>&lt;/p&gt;
+                        &lt;div class="email text-muted"&gt;{{ contact.email }}&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+            &lt;/div&gt;
+          </code></pre>
+        </p>
+      </div>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/StevenLambion/ui-listView">Ui-listview</a> is maintained by <a href="https://github.com/StevenLambion">StevenLambion</a>.</span>
@@ -51,7 +102,8 @@
       </footer>
 
     </section>
-
-  
+  <script src="bower_components/angular/angular.min.js"></script>  
+  <script src="bower_components/ui-listView/dist/ui-listView.min.js"></script>
+  <script src="app.js"></script>
   </body>
 </html>
