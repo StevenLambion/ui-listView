@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="bower_components/ui-listView/dist/ui-listView.css" media="screen">
-    <!--<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">-->
     
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="bower_components/ui-listView/dist/ui-listView.css" media="screen">
+    <!--<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">-->
+    
   </head>
   <body ng-app="app">
     <section class="page-header">
@@ -27,7 +29,9 @@
 
     <section class="main-content">
       <p>
-        ui-listView is an efficient, scalable list for large data sets.  You simply provide a height and use it similarly to ng-repeat with all the angular bindings you want.  Even with a list of 1000 it won't slow down.
+        ui-listView is an efficient, scalable list for large data sets.  You simply provide a height and use it similarly to
+        ng-repeat with all the angular bindings you want.  Even with a list of 1000 it won't slow down.  There's also no static row height.
+        The height is set by the contents of the row dynamically.
       </p>
 
 
@@ -47,52 +51,89 @@
       
       <div ng-controller="Examples">
         <h4>Basic Usage</h4>
-        <div class="country" ui-list-view="country in countries" style="height:300px; font-size:14px;">
-            {{ country.name }}
+        <div class="container-fluid no-padding">
+          <div class="col-xs-12 col-sm-6">
+            <div class="country" ui-list-view="country in countries" style="height:300px; font-size:14px;">
+                {{ country.name }}
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+<pre><code ng-non-bindable>
+  &lt;div ui-list-view="country in countries"&gt;
+    {{ country.name }}
+  &lt;/div&gt;
+</code></pre>
+          </div>
         </div>
-        <p>
-          <pre><code ng-non-bindable>
-            &lt;div class="contact" ui-list-view="country in countries"&gt;
-              {{ country.name }}
-            &lt;/div&gt;
-          </code></pre>
-        </p>
+        
+        <h4>Custom Style</h4>
+        <div class="container-fluid no-padding">
+          <div class="col-xs-12 col-sm-6">
+            <div class="custom-list" ui-list-view="country in countries" options="{ style: 'none' }">
+                <div class="country">{{ country.name }}</div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+  <pre><code ng-non-bindable>
+  &lt;div class="custom-list" ui-list-view="country in countries" options="{ style: 'none' }"&gt;
+    &lt;div class="country"&gt;{{ country.name }}&lt;div&gt;
+  &lt;/div&gt;
+  </code></pre>
+
+<pre><code ng-non-bindable>
+.custom-list {
+  height: 300px;
+  border: solid 1pt darkblue;
+  border-radius: 15px;
+}
+
+.custom-list .country {
+  border-bottom: dashed 1pt darkblue;
+  padding: 5px 5px; 
+}
+</code></pre>
+  
+          </div>
+        </div>
         
         <h4>Advanced Usage</h4>
-        <label>
-          <input type="checkbox" ng-model="hideEmail"/> Hide Email
-        </label>
-        <div class="contact-list panel panel-default">    
-            <div class="panel-heading">
-                <input class="form-control" ng-model="search.name" placeholder="Search Name.."/>
-            </div>
-            
-            <div class="panel-body">
-                <div class="contact" ui-list-view="contact in contacts | filter:search">
-                    <div class="name"><strong>{{ contact.name }}</strong></div>
-                    <div class="email text-muted" ng-if="!hideEmail">{{ contact.email }}</div>
+        <div class="container-fluid no-padding">
+          <div class="col-xs-12 col-sm-6">
+            <label>
+              <input type="checkbox" ng-model="hideEmail"/> Hide email
+            </label>
+            <div class="contact-list panel panel-default">    
+                <div class="panel-heading">
+                    <input class="form-control" ng-model="search.name" placeholder="Search Name.."/>
                 </div>
+                
+                <div class="panel-body">
+                    <div class="contact" ui-list-view="contact in contacts | filter:search">
+                        <div class="name"><strong>{{ contact.name }}</strong></div>
+                        <div class="email text-muted" ng-if="!hideEmail">{{ contact.email }}</div>
+                    </div>
+                </div>
+                
             </div>
-            
-        </div>  
-        <p>
-          <pre><code ng-non-bindable>
-            &lt;div class="contact-list panel panel-default"&gt;
-                
-                &lt;div class="panel-heading"&gt;
-                    &lt;input class="form-control" ng-model="search.name" placeholder="Search Name.."/&gt;
-                &lt;/div&gt;
-                
-                &lt;div class="panel-body"&gt;
-                    &lt;div class="contact" ui-list-view="contact in contacts | filter:search"&gt;
-                        &lt;p class="name"&gt;&lt;strong&gt;{{ contact.name }}&lt;/strong>&lt;/p&gt;
-                        &lt;div class="email text-muted"&gt;{{ contact.email }}&lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                
-            &lt;/div&gt;
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <pre><code ng-non-bindable>
+&lt;div class="contact-list panel panel-default"&gt;
+    
+    &lt;div class="panel-heading"&gt;
+        &lt;input class="form-control" ng-model="search.name" placeholder="Search Name.."/&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="panel-body"&gt;
+        &lt;div ui-list-view="contact in contacts | filter:search"&gt;
+            &lt;p class="name"&gt;&lt;strong&gt;{{ contact.name }}&lt;/strong>&lt;/p&gt;
+            &lt;div class="email text-muted"&gt;{{ contact.email }}&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+&lt;/div&gt;
           </code></pre>
-        </p>
+        </div>
       </div>
 
       <footer class="site-footer">

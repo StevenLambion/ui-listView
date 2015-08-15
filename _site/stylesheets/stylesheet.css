@@ -205,7 +205,6 @@ a {
 
 @media screen and (min-width: 64em) {
   .main-content {
-    max-width: 64rem;
     padding: 2rem 6rem;
     margin: 0 auto;
     font-size: 1.1rem; } }
@@ -244,9 +243,6 @@ a {
   .site-footer {
     font-size: 0.9rem; } }
 
-.contact p {
-    margin: 0 0 10px 0;
-}
 .contact-list .panel-body {
     padding: 0;
 }
@@ -260,4 +256,28 @@ a {
 
 html {
   font-size: 16px !important;
+}
+
+.page-header {
+  margin: 0;
+}
+
+.no-padding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.custom-list {
+  height: 300px;
+  border: solid 1pt darkblue;
+  border-radius: 15px;
+}
+
+.custom-list .country {
+  border-bottom: dashed 1pt darkblue;
+  padding: 5px 5px; 
+}
+
+label {
+  font-weight: normal;
 }
