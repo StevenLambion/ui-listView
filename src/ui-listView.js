@@ -394,7 +394,7 @@ angular.module("sl.ui-listView", [
                 
                 function addDefaultOptions (options) {
                     for (var key in defaultOptions) {
-                        if (!options.hasOwnProperty(key) || defaultOptions.hasOwnProperty(key)) {
+                        if (!options.hasOwnProperty(key) && defaultOptions.hasOwnProperty(key)) {
                             options[key] = defaultOptions[key];
                         }
                     }
