@@ -478,6 +478,9 @@ angular.module("sl.ui-listView", [
             
             function updateRow (row) {
                 transcludeScope[listView.itemIdentifier] = row.item;
+                transcludeScope.$index = row.index;
+                transcludeScope.$first = row.index === 0;
+                transcludeScope.$last = row.index === listView.rows.length - 1;
                 updateOffset(row.offset);
             }
             
