@@ -1,7 +1,10 @@
 {
   "name": "ui-listView",
   "version": "0.0.1",
-  "main": "dist/ui-listview.min.js",
+  "main": [
+    "dist/ui-listView.min.js",
+    "dist/ui-listView.css"
+  ],
   "keywords": [
     "angular",
     "listview",
