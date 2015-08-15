@@ -46,6 +46,27 @@
       </code>
       
       <h3>
+        <a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Infinite Scrolling
+      </h3>
+      <p>
+        ui-listView has an options object to provide extra functionality and API hooks.  As the user scrolls, a read-only "range" property is updated on the options object.  Watching this
+      property, you can see when the list is at the bottom and then appending a new set of data.
+      </p>
+      <pre><code>
+        
+
+$scope.$watch("listOptions.range", function (range) {
+    if (range && range.index + range.length === range.total) {
+        loadMoreItems(range);
+    }
+});
+      </code></pre>
+      
+      <p>
+        API documentation is in the works, but for now check out the <a href="https://github.com/StevenLambion/ui-listView">README</a> for more information on options.
+      </p>
+      
+      <h3>
         <a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples
       </h3>
       

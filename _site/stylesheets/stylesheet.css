@@ -267,6 +267,10 @@ html {
    margin: 0 !important;
 }
 
+.ui-list-view {
+  margin-bottom: 20px;
+}
+
 .custom-list {
   height: 300px;
   border: solid 1pt darkblue;
