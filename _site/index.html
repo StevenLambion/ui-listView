@@ -53,8 +53,6 @@
       property, you can see when the list is at the bottom and then appending a new set of data.
       </p>
       <pre><code>
-        
-
 $scope.$watch("listOptions.range", function (range) {
     if (range && range.index + range.length === range.total) {
         loadMoreItems(range);
