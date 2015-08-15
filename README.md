@@ -7,6 +7,8 @@ This is an initial release.  More features and testing are in the works.
 
 ## Code Example
 
+See live code examples on http://stevenlambion.github.io/ui-listView/
+
 ```
 <div class="contact-list" ui-list-view="contact in contacts" options="listOptions">
     <p class="name"><strong>{{ contact.name }}</strong></p>
