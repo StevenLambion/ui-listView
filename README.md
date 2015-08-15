@@ -47,6 +47,12 @@ type: `Object`
 
 This property is added by the list view to provide API access.  Documentation is coming shortly.
 
+#### options.range
+type: `Object`
+
+A read-only property that shows the current visible range of items being displayed.  It can be useful to indicate when to load more items
+from a service when implementing infinite scroll.
+
 #### 
 
 ## License

@@ -438,7 +438,7 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
 
                 function addDefaultOptions(options) {
                     for (var key in defaultOptions) {
-                        if (!options.hasOwnProperty(key) || defaultOptions.hasOwnProperty(key)) {
+                        if (!options.hasOwnProperty(key) && defaultOptions.hasOwnProperty(key)) {
                             options[key] = defaultOptions[key];
                         }
                     }
