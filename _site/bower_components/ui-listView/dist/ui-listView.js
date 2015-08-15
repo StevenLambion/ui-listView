@@ -200,7 +200,8 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
 
                 this.visibleRange = {
                     index: firstIndex,
-                    length: lastIndex - firstIndex
+                    length: lastIndex - firstIndex,
+                    total: rows.length
                 };
                 return range.index !== this.visibleRange.index || range.length !== this.visibleRange.length;
             }
@@ -232,6 +233,7 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
                 this.updateAnchor();
                 if (this.updateRange()) {
                     this.updateCells();
+                    this.options.range = this.visibleRange;
                     return true;
                 }
                 return false;
@@ -434,8 +436,17 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
                     }
                 }
 
+                function addDefaultOptions(options) {
+                    for (var key in defaultOptions) {
+                        if (!options.hasOwnProperty(key) && defaultOptions.hasOwnProperty(key)) {
+                            options[key] = defaultOptions[key];
+                        }
+                    }
+                }
+
                 $scope.$watch("options", function (options, oldOptions) {
-                    options = angular.extend(angular.copy(defaultOptions), options || {});
+                    options = options || {};
+                    addDefaultOptions(options);
                     options.listView = listView;
                     listView.options = options;
                     updateOptions(options, oldOptions);
@@ -519,6 +530,9 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
 
             function updateRow(row) {
                 transcludeScope[listView.itemIdentifier] = row.item;
+                transcludeScope.$index = row.index;
+                transcludeScope.$first = row.index === 0;
+                transcludeScope.$last = row.index === listView.rows.length - 1;
                 updateOffset(row.offset);
             }
 

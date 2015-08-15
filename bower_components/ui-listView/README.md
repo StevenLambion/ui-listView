@@ -7,6 +7,8 @@ This is an initial release.  More features and testing are in the works.
 
 ## Code Example
 
+See live code examples on http://stevenlambion.github.io/ui-listView/
+
 ```
 <div class="contact-list" ui-list-view="contact in contacts" options="listOptions">
     <p class="name"><strong>{{ contact.name }}</strong></p>
@@ -44,6 +46,12 @@ Set the style of the list view.  Set this value to null or "" to not use a built
 type: `Object`
 
 This property is added by the list view to provide API access.  Documentation is coming shortly.
+
+#### options.range
+type: `Object`
+
+A read-only property that shows the current visible range of items being displayed.  It can be useful to indicate when to load more items
+from a service when implementing infinite scroll.
 
 #### 
 

@@ -1,6 +1,8 @@
 angular.module("app", ["sl.ui-listView"])
 .controller("SampleApp", function ($scope) {
     
+    $scope.listViewOptions = {};
+    
     $scope.search = {};
     
     $scope.contacts = [
