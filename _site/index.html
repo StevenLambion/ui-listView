@@ -41,9 +41,14 @@
       <p>
         You can add ui-listView through the bower package manager.
       </p>
-      <code>
-        bower install ui-listView [--save]
-      </code>
+      <p><code>
+bower install ui-listView [--save]
+      </code></p>
+      <p>Then include the "sl.ui-listView" module into your angular application.</p>
+
+<code>
+var appModule = angular.module("app", [sl.ui-listView])
+</code>
       
       <h3>
         <a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Infinite Scrolling
