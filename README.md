@@ -31,6 +31,12 @@ yet able to handle big data sets.  There was also a strong need for dynamic rows
 bower install ui-listView
 ```
 
+Then include the "sl.ui-listView" module into your angular application.
+
+```
+var appModule = angular.module("app", [sl.ui-listView])
+```
+
 ## API
 
 ### options
