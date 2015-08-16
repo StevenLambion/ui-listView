@@ -53,8 +53,6 @@ type: `Object`
 A read-only property that shows the current visible range of items being displayed.  It can be useful to indicate when to load more items
 from a service when implementing infinite scroll.
 
-#### 
-
 ## License
 
 The MIT License (MIT)
