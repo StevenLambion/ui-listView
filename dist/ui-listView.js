@@ -1,7 +1,7 @@
 ;(function() {
 /**
  * @ngdoc module
- * @name sl.ui-listView
+ * @name ui-listView
  * @description
  * Displays a list of items.  Designed to handle large data sets.
  */
@@ -11,7 +11,7 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiListView", ["$rootScope", "$parse", function ($rootScope, $parse) {
+angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListView", ["$rootScope", "$parse", function ($rootScope, $parse) {
     var arrayRegexp = /([\s\S]+?)\s+(?:in)\s+([\s\S]+?)\s*$/; // "item in array [|filterName]"
 
     var defaultOptions = {
@@ -28,7 +28,8 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
     }
 
     /**
-     * ngdoc controller
+     * @ngdoc controller
+     * @memberOf ui-listView
      * @description
      * Displays a list of items.  Designed to handle large data sets.  The list view's controller
      * is added to the options object to provide an API.
@@ -514,7 +515,7 @@ angular.module("sl.ui-listView.templates", []).run(["$templateCache", function (
  */
 "use strict";
 
-angular.module("sl.ui-listView").directive("uiListViewAnchor", function () {
+angular.module("ui-listView").directive("uiListViewAnchor", function () {
 
     return {
         require: "^uiListView",
@@ -545,7 +546,7 @@ angular.module("sl.ui-listView").directive("uiListViewAnchor", function () {
  */
 "use strict";
 
-angular.module("sl.ui-listView").directive("uiListViewCell", function () {
+angular.module("ui-listView").directive("uiListViewCell", function () {
 
     return {
         require: "^uiListView",

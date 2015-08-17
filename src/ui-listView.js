@@ -1,10 +1,10 @@
 /**
  * @ngdoc module
- * @name sl.ui-listView
+ * @name ui-listView
  * @description
  * Displays a list of items.  Designed to handle large data sets.
  */
-angular.module("sl.ui-listView", [
+angular.module("ui-listView", [
     "sl.ui-listView.templates"
 ]).directive("uiListView", ($rootScope, $parse) => {
     var arrayRegexp = /([\s\S]+?)\s+(?:in)\s+([\s\S]+?)\s*$/; // "item in array [|filterName]"
@@ -23,7 +23,8 @@ angular.module("sl.ui-listView", [
     }
     
     /**
-     * ngdoc controller
+     * @ngdoc controller
+     * @memberOf ui-listView
      * @description
      * Displays a list of items.  Designed to handle large data sets.  The list view's controller
      * is added to the options object to provide an API.

@@ -12,7 +12,7 @@
  * 
  * @private
  */
-angular.module("sl.ui-listView").directive("uiListViewCell", () => {
+angular.module("ui-listView").directive("uiListViewCell", () => {
     
     return {
         require: "^uiListView",

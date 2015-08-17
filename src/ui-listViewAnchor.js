@@ -6,7 +6,7 @@
  * 
  * @private
  */
-angular.module("sl.ui-listView").directive("uiListViewAnchor", () => {
+angular.module("ui-listView").directive("uiListViewAnchor", () => {
     
     return {
         require: "^uiListView",
