@@ -1,6 +1,6 @@
 ![travis CI status](https://travis-ci.org/StevenLambion/ui-listView.svg?branch=master)
 
-## UIListView
+## ui-ListView
 An efficient, dynamic list view for angular applications.  It's able to handle data sets with thousands of
 items while providing a similar interface to ng-repeat.  Unlike other variations, row heights are based
 on the row content, and the list view dynamicly updates to accomodate changes.
