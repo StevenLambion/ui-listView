@@ -9,6 +9,8 @@ This is an initial release.  More features and testing are in the works.
 
 ## Installation
 
+You can use bower to install ui-listView.
+
 ```
 bower install ui-listView
 ```
