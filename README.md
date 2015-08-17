@@ -7,6 +7,18 @@ on the row content, and the list view dynamicly updates to accomodate changes.
 
 This is an initial release.  More features and testing are in the works.
 
+## Installation
+
+```
+bower install ui-listView
+```
+
+Then include the "ui-listView" module into your angular application.
+
+```
+var appModule = angular.module("app", [ui-listView])
+```
+
 ## Code Example
 
 See live code examples on http://stevenlambion.github.io/ui-listView/
@@ -24,18 +36,6 @@ See live code examples on http://stevenlambion.github.io/ui-listView/
 
 Working on many projects that required large or paged lists lead me to create this directive.  I wanted something with a simple interface like ng-repeat,
 yet able to handle big data sets.  There was also a strong need for dynamic rows.  However, above all, I did this because it sounded like a fun problem to solve. 
-
-## Installation
-
-```
-bower install ui-listView
-```
-
-Then include the "ui-listView" module into your angular application.
-
-```
-var appModule = angular.module("app", [ui-listView])
-```
 
 ## API
 
