@@ -1,7 +1,7 @@
 ;(function() {
 /**
  * @ngdoc module
- * @name sl.ui-listView
+ * @name ui-listView
  * @description
  * Displays a list of items.  Designed to handle large data sets.
  */
@@ -11,7 +11,7 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiListView", ["$rootScope", "$parse", function ($rootScope, $parse) {
+angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListView", ["$rootScope", "$parse", function ($rootScope, $parse) {
     var arrayRegexp = /([\s\S]+?)\s+(?:in)\s+([\s\S]+?)\s*$/; // "item in array [|filterName]"
 
     var defaultOptions = {
@@ -28,7 +28,8 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
     }
 
     /**
-     * ngdoc controller
+     * @ngdoc controller
+     * @memberOf ui-listView
      * @description
      * Displays a list of items.  Designed to handle large data sets.  The list view's controller
      * is added to the options object to provide an API.
@@ -498,7 +499,54 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
             };
         }
     };
-}]).directive("uiListViewCell", function () {
+}]);
+"use strict";
+
+angular.module("sl.ui-listView.templates", []).run(["$templateCache", function ($templateCache) {
+  $templateCache.put("ui-listView.tpl.html", "<div class=\"ui-list-view\">\n    <div class=\"ui-list-view-cell\" ui-list-view-cell ng-repeat=\"cell in listView.cells\">\n        <div class=\"ui-list-view-cell-content\"></div>\n    </div>\n    <div class=\"ui-list-view-anchor\" ui-list-view-anchor></div>\n</div>");
+}]);
+/**
+ * @ngdoc directive
+ * @name uiListViewAnchor
+ * @description
+ * The anchor is used to set the list view's scroll height based on the last row's offset and height.
+ * 
+ * @private
+ */
+"use strict";
+
+angular.module("ui-listView").directive("uiListViewAnchor", function () {
+
+    return {
+        require: "^uiListView",
+        link: function link($scope, element, attr, listView) {
+            var rawElement = element[0];
+
+            listView.anchor = {
+                updateAnchor: function updateAnchor(scrollHeight) {
+                    rawElement.style.top = scrollHeight + "px";
+                }
+            };
+        }
+    };
+});
+/**
+ * @ngdoc directive
+ * @name uiListViewCell
+ * @description
+ * The visual representation of a list view cell.  A cell is a container
+ * to a visible row.  As the list is scrolled, the cells are updated with the
+ * current set of visible rows to display.
+ * 
+ * Certain choices were made for performance reasons.  For example, instead of
+ * watchers, the directive acts as a delegate to the cell.  When the cell is updated, it
+ * delegates those changes to the directive.
+ * 
+ * @private
+ */
+"use strict";
+
+angular.module("ui-listView").directive("uiListViewCell", function () {
 
     return {
         require: "^uiListView",
@@ -550,26 +598,7 @@ angular.module("sl.ui-listView", ["sl.ui-listView.templates"]).directive("uiList
             updateRow(cell.row);
         }
     };
-}).directive("uiListViewAnchor", function () {
-
-    return {
-        require: "^uiListView",
-        link: function link($scope, element, attr, listView) {
-            var rawElement = element[0];
-
-            listView.anchor = {
-                updateAnchor: function updateAnchor(scrollHeight) {
-                    rawElement.style.top = scrollHeight + "px";
-                }
-            };
-        }
-    };
 });
-"use strict";
-
-angular.module("sl.ui-listView.templates", []).run(["$templateCache", function ($templateCache) {
-  $templateCache.put("ui-listView.tpl.html", "<div class=\"ui-list-view\">\n    <div class=\"ui-list-view-cell\" ui-list-view-cell ng-repeat=\"cell in listView.cells\">\n        <div class=\"ui-list-view-cell-content\"></div>\n    </div>\n    <div class=\"ui-list-view-anchor\" ui-list-view-anchor></div>\n</div>");
-}]);
 }());
 
 //# sourceMappingURL=ui-listView.js.map

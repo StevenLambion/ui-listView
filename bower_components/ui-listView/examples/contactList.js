@@ -1,4 +1,4 @@
-angular.module("app", ["sl.ui-listView"])
+angular.module("app", ["ui-listView"])
 .controller("SampleApp", function ($scope) {
     
     $scope.listViewOptions = {};

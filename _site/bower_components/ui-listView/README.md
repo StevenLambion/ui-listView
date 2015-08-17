@@ -1,3 +1,5 @@
+![travis CI status](https://travis-ci.org/StevenLambion/ui-listView.svg?branch=master)
+
 ## UIListView
 An efficient, dynamic list view for angular applications.  It's able to handle data sets with thousands of
 items while providing a similar interface to ng-repeat.  Unlike other variations, row heights are based
@@ -29,6 +31,12 @@ yet able to handle big data sets.  There was also a strong need for dynamic rows
 bower install ui-listView
 ```
 
+Then include the "ui-listView" module into your angular application.
+
+```
+var appModule = angular.module("app", [ui-listView])
+```
+
 ## API
 
 ### options
@@ -52,8 +60,6 @@ type: `Object`
 
 A read-only property that shows the current visible range of items being displayed.  It can be useful to indicate when to load more items
 from a service when implementing infinite scroll.
-
-#### 
 
 ## License
 

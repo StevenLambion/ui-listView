@@ -1,6 +1,7 @@
 .ui-list-view {
     overflow: auto !important;
     position: relative;
+    -webkit-overflow-scrolling: touch;
 }
 .ui-list-view-cell {
     position: absolute;

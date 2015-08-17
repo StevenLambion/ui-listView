@@ -1,10 +1,10 @@
 /**
  * @ngdoc module
- * @name sl.ui-listView
+ * @name ui-listView
  * @description
  * Displays a list of items.  Designed to handle large data sets.
  */
-angular.module("sl.ui-listView", [
+angular.module("ui-listView", [
     "sl.ui-listView.templates"
 ]).directive("uiListView", ($rootScope, $parse) => {
     var arrayRegexp = /([\s\S]+?)\s+(?:in)\s+([\s\S]+?)\s*$/; // "item in array [|filterName]"
@@ -23,7 +23,8 @@ angular.module("sl.ui-listView", [
     }
     
     /**
-     * ngdoc controller
+     * @ngdoc controller
+     * @memberOf ui-listView
      * @description
      * Displays a list of items.  Designed to handle large data sets.  The list view's controller
      * is added to the options object to provide an API.
@@ -452,79 +453,6 @@ angular.module("sl.ui-listView", [
                     window.removeEventListener("resize", handleResize);
                 });
             };
-        }
-    };
-    
-})
-
-.directive("uiListViewCell", () => {
-    
-    return {
-        require: "^uiListView",
-        link ($scope, element, attrs, listView, $transclude) {
-            var rawElement = element[0];
-            var cell = $scope.cell;
-            var transcludeScope;
-            
-            $transclude((clone, scope) => {
-                var content = element.children();
-                transcludeScope = scope;
-                updateRow(cell.row);
-                content.empty();
-                content.append(clone);
-            });
-            
-            function updateOffset(offset) {
-                rawElement.style.top = offset + "px";
-            }
-            
-            function updateSize() {
-                var height = rawElement.clientHeight;
-                var row = cell.row;
-                if (height !== row.height) {
-                    row.height = height;
-                    listView.requestOffsetUpdate(row.index);
-                }
-            }
-            
-            function updateRow (row) {
-                transcludeScope[listView.itemIdentifier] = row.item;
-                transcludeScope.$index = row.index;
-                transcludeScope.$first = row.index === 0;
-                transcludeScope.$last = row.index === listView.rows.length - 1;
-                updateOffset(row.offset);
-            }
-            
-            $scope.$watch(() => {
-                return cell.row.index + "-" + rawElement.clientHeight;
-            }, () => {
-                updateSize();
-            });
-            
-            cell.delegate = {
-                rowDidChange: updateRow,
-                offsetDidChange: updateOffset
-            };
-                
-            updateRow(cell.row);
-        }
-    };
-    
-})
-
-.directive("uiListViewAnchor", () => {
-    
-    return {
-        require: "^uiListView",
-        link ($scope, element, attr, listView) {
-            var rawElement = element[0];
-            
-            listView.anchor = {
-                updateAnchor (scrollHeight) {
-                    rawElement.style.top = scrollHeight + "px";
-                }
-            };
-            
         }
     };
     

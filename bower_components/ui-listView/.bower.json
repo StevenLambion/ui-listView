@@ -1,6 +1,6 @@
 {
   "name": "ui-listView",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": [
     "dist/ui-listView.min.js",
     "dist/ui-listView.css"
@@ -26,11 +26,11 @@
   "dependencies": {
     "angular": "~1.4"
   },
-  "_release": "0.0.3",
+  "_release": "0.0.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.3",
-    "commit": "30d667c3a6c177a612a30e238797e0ebbebf74bf"
+    "tag": "v0.0.4",
+    "commit": "09794e6ad539220bf5efa558996ee082baea6651"
   },
   "_source": "git://github.com/StevenLambion/ui-listView.git",
   "_target": "~0.0.1",

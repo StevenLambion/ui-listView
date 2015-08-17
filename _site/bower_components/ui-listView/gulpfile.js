@@ -19,6 +19,8 @@ var jshint = require("gulp-jshint");
 var stylish = require("jshint-stylish")
 
 var del = require("del");
+
+var karma = require("karma").server;
  
 var paths = {
     src: {
@@ -30,7 +32,8 @@ var paths = {
     dist: {
         root: "dist",
         javascript: "dist/",
-        styles: "dist/"
+        styles: "dist/",
+        reports: 'reports'
     }
 };
 
@@ -43,7 +46,7 @@ var handleError = function (taskName) {
 var tasks = {
     
     clean: function (cb) {
-        del(paths.dist.root, cb);
+        del([paths.dist.root, paths.dist.reports], cb);
     },
     
     compileScripts: function () {
@@ -86,6 +89,13 @@ var tasks = {
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(jshint.reporter("fail"))
+    },
+    
+    test: function (cb) {
+        new karma.start({
+            configFile: __dirname + '/karma.conf.js',
+            singleRun: true
+        }, cb);
     }
     
 }
@@ -98,9 +108,12 @@ gulp.task("lintjs", tasks.lintjs);
 gulp.task("compileScripts", ["lintjs"], tasks.compileScripts);
 gulp.task("compileStyles", tasks.compileStyles);
 gulp.task("uglify", ["compileScripts"], tasks.uglifyScripts);
+gulp.task("test", tasks.test);
+
 gulp.task("build", function (cb) {
     return runSequence(
         "clean",
+        "test",
         ["compileScripts", "compileStyles"],
         "uglify",
         cb
