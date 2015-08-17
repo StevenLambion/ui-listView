@@ -144,6 +144,10 @@ $scope.$watch("listOptions.range", function (range) {
             <pre><code ng-non-bindable>
 &lt;div class="contact-list panel panel-default"&gt;
     
+    &lt;label&gt;
+      &lt;input type="checkbox" ng-model="hideEmail"/&gt; Hide email
+    &lt;/label&gt;
+    
     &lt;div class="panel-heading"&gt;
         &lt;input class="form-control" ng-model="search.name" placeholder="Search Name.."/&gt;
     &lt;/div&gt;
@@ -151,7 +155,7 @@ $scope.$watch("listOptions.range", function (range) {
     &lt;div class="panel-body"&gt;
         &lt;div ui-list-view="contact in contacts | filter:search"&gt;
             &lt;p class="name"&gt;&lt;strong&gt;{{ contact.name }}&lt;/strong>&lt;/p&gt;
-            &lt;div class="email text-muted"&gt;{{ contact.email }}&lt;/div&gt;
+            &lt;div class="email text-muted" ng-if="!hideEmail"&gt;{{ contact.email }}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     
