@@ -74,7 +74,7 @@ var tasks = {
         return gulp.src(paths.src.templates)
         .pipe(templateCache({
             base: __dirname + "/" + paths.src.root,
-            module: "sl.ui-listView.templates",
+            module: "ui-listView.templates",
             standalone: true
         }))
     },

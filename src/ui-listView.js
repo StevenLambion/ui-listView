@@ -5,9 +5,9 @@
  * Displays a list of items.  Designed to handle large data sets.
  */
 angular.module("ui-listView", [
-    "sl.ui-listView.templates"
+    "ui-listView.templates"
 ]).directive("uiListView", ($rootScope, $parse) => {
-    var arrayRegexp = /([\s\S]+?)\s+(?:in)\s+([\s\S]+?)\s*$/; // "item in array [|filterName]"
+    var arrayRegexp = /^\s*([a-zA-Z0-9]+)\s+(in)\s+([a-zA-Z0-9.]+(\s*[|].*$)?)/; // "item in array [|filterName]"
     
     var defaultOptions = {
         style: "default"
@@ -356,7 +356,7 @@ angular.module("ui-listView", [
         templateUrl: "ui-listView.tpl.html",
         replace: true, // TODO: remove
         transclude: true,
-        scope: { options: "="},
+        scope: { options: "=" },
         
         controller: UIListView,
         controllerAs: "listView",
