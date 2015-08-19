@@ -35,9 +35,11 @@
                     </div>
                     
                     <div class="panel-body">
-                        <div class="contact ui-list-view-bordered" ui-list-view="contact in contacts | filter:search">
-                            <p class="name"><strong>{{ contact.name }}</strong></p>
-                            <div class="email">{{ contact.email }}</div>
+                        <div class="contact ui-list-view-striped" ui-list-view="contact in contacts | filter:search">
+                            <div ng-class="{ selected: contact.selected }" ng-click="contact.selected = !contact.selected">
+                                <p class="name"><strong>{{ contact.name }}</strong></p>
+                                <div class="email">{{ contact.email }}</div>
+                            </div>
                         </div>
                     </div>
                     

@@ -13,6 +13,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    cursor: default;
 }
 .ui-list-view-anchor {
     position: absolute;
@@ -21,15 +22,31 @@
 }
 
 .ui-list-view-bordered {
-    height: 500px;
     border: solid 1pt #eee;
-    cursor: default;
 }
 
 .ui-list-view-bordered > .ui-list-view-cell {
     border-bottom: solid 1pt #eee;
 }
 
-.ui-list-view-bordered > .ui-list-view-cell > .ui-list-view-cell-content {
+.ui-list-view-bordered > .ui-list-view-cell > .ui-list-view-cell-content > * {
     padding: 15px 10px;
+}
+
+.ui-list-view-striped {
+    border: solid 1pt #eee;
+}
+
+.ui-list-view-striped > .ui-list-view-cell:nth-child(even) {
+    background: #F9FaFb;
+}
+
+.ui-list-view-striped > .ui-list-view-cell > .ui-list-view-cell-content > * {
+    padding: 15px 10px;
+}
+
+.ui-list-view-cell-content > ._selected {
+    background: #2A70DE;
+    color: white;
+    border-bottom: solid 1pt #eee;
 }
