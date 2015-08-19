@@ -35,7 +35,7 @@
                     </div>
                     
                     <div class="panel-body">
-                        <div class="contact" ui-list-view="contact in contacts | filter:search">
+                        <div class="contact ui-list-view-bordered" ui-list-view="contact in contacts | filter:search">
                             <p class="name"><strong>{{ contact.name }}</strong></p>
                             <div class="email">{{ contact.email }}</div>
                         </div>
@@ -45,7 +45,7 @@
             </div>
         </div>
         
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.17/angular.min.js"></script>
         <script src="../dist/ui-listView.js"></script>
         <script src="contactList.js"></script>
     </body>
