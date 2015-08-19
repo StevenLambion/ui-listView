@@ -45,6 +45,9 @@ module.exports = function(config) {
       reporters: [{
         type: 'html',
         subdir: 'html'
+      }, {
+        type: 'lcov',
+        subdir: 'lcov'
       }]
     },
 

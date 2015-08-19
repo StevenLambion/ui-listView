@@ -11,11 +11,11 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListView", ["$rootScope", "$parse", function ($rootScope, $parse) {
-    var arrayRegexp = /([\s\S]+?)\s+(?:in)\s+([\s\S]+?)\s*$/; // "item in array [|filterName]"
+angular.module("ui-listView", ["ui-listView.templates"]).directive("uiListView", ["$rootScope", "$parse", function ($rootScope, $parse) {
+    var arrayRegexp = /^\s*([a-zA-Z0-9]+)\s+(?:in)\s+([a-zA-Z0-9.]+(\s*[|].*$)?)/; // "item in array [|filterName]"
 
     var defaultOptions = {
-        style: "default"
+        preferredHeight: 48
     };
 
     /**
@@ -42,8 +42,8 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
 
             this.$scope = $scope;
             this.cells = [];
-            this.preferredHeight = 48;
             this._clear();
+            this.setOptions({});
         }
         UIListView.$inject = ["$scope"];
 
@@ -54,15 +54,23 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
          * Displays a list of items.  Designed to handle large data sets.
          */
 
-        /**
-         * Request that the row offsets be recomputed. It will perform the update
-         * after the current digest.  This is useful if the offsets might be updated
-         * multiple times during a single digest.
-         * @param {Number} [startIndex] The index to start recomputing from.
-         * @method
-         */
-
         _createClass(UIListView, [{
+            key: "setOptions",
+            value: function setOptions(options) {
+                this._addDefaultOptions(options);
+                options.listView = this;
+                this.options = options;
+                this.reload();
+            }
+
+            /**
+             * Request that the row offsets be recomputed. It will perform the update
+             * after the current digest.  This is useful if the offsets might be updated
+             * multiple times during a single digest.
+             * @param {Number} [startIndex] The index to start recomputing from.
+             * @method
+             */
+        }, {
             key: "requestOffsetUpdate",
             value: function requestOffsetUpdate(startIndex) {
                 var _this = this;
@@ -265,19 +273,27 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
                     top: cell.row.offset + "px"
                 };
             }
+        }, {
+            key: "_addDefaultOptions",
+            value: function _addDefaultOptions(options) {
+                for (var key in defaultOptions) {
+                    if (!options.hasOwnProperty(key) && defaultOptions.hasOwnProperty(key)) {
+                        options[key] = defaultOptions[key];
+                    }
+                }
+            }
 
             /**
              * Reload the list view from scratch.  The rows will be
              * computed.
              * @param {Object[]} [items] Optionally change the list view's items;
              * @method
-             * @private
              */
         }, {
-            key: "_reload",
-            value: function _reload(items) {
-                this._clear();
-                if (items) {
+            key: "reload",
+            value: function reload(items) {
+                if (items && items !== this.originalItems || !this.originalItems) {
+                    this._clear();
                     this.originalItems = items;
                 } else {
                     items = this.originalItems;
@@ -285,7 +301,6 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
                 if (this.rows.length > items.length) {
                     this.rows.length = items.length;
                 }
-                this.cells.length = items.length;
                 this._rebuildRows(items);
             }
 
@@ -325,7 +340,7 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
                     row = rows[i];
                     if (!row) {
                         row = rows[i] = {
-                            height: this.preferredHeight,
+                            height: this.options.preferredHeight,
                             offset: offset
                         };
                     }
@@ -426,32 +441,8 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
                     return listView.setViewport(scrollTop, rawElement.clientHeight);
                 }
 
-                function updateOptions(options, oldOptions) {
-                    if (oldOptions) {
-                        if (oldOptions.style) {
-                            element.removeClass("ui-list-view-" + oldOptions.style);
-                        }
-                    }
-                    if (options.style) {
-                        element.addClass("ui-list-view-" + options.style);
-                    }
-                }
-
-                function addDefaultOptions(options) {
-                    for (var key in defaultOptions) {
-                        if (!options.hasOwnProperty(key) && defaultOptions.hasOwnProperty(key)) {
-                            options[key] = defaultOptions[key];
-                        }
-                    }
-                }
-
-                $scope.$watch("options", function (options, oldOptions) {
-                    options = options || {};
-                    addDefaultOptions(options);
-                    options.listView = listView;
-                    listView.options = options;
-                    updateOptions(options, oldOptions);
-                    listView._reload();
+                $scope.$watch("options", function (options) {
+                    listView.setOptions(options || {});
                 });
 
                 var isScrolling; // For performance, don't retrieve items while the list is scrolling.
@@ -459,7 +450,7 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
                 $scope.$watchCollection(function () {
                     return !isScrolling ? arrayGetter($scope.$parent) : listView.originalItems;
                 }, function (items) {
-                    listView._reload(items);
+                    listView.reload(items);
                     updateListView();
                 });
 
@@ -502,7 +493,7 @@ angular.module("ui-listView", ["sl.ui-listView.templates"]).directive("uiListVie
 }]);
 "use strict";
 
-angular.module("sl.ui-listView.templates", []).run(["$templateCache", function ($templateCache) {
+angular.module("ui-listView.templates", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("ui-listView.tpl.html", "<div class=\"ui-list-view\">\n    <div class=\"ui-list-view-cell\" ui-list-view-cell ng-repeat=\"cell in listView.cells\">\n        <div class=\"ui-list-view-cell-content\"></div>\n    </div>\n    <div class=\"ui-list-view-anchor\" ui-list-view-anchor></div>\n</div>");
 }]);
 /**

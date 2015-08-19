@@ -46,7 +46,7 @@ describe("ui-ListView", () => {
     describe("Array expression", () => {
         
         it("should understand the format 'item in items'", () => {
-            expect(() => createListView("item in items")).not.toThrow();
+            createListView("item in items");
         });
         
         it("should fail with the format '{ item: items }'", () => {
@@ -73,30 +73,10 @@ describe("ui-ListView", () => {
     
     describe("Options", () => {
         
-       
-        describe("Style", () => {
-        
-            it("should use the default style", () => {
-                createListView("item in items");
-                expect(controller.options.style).toBe("default");
-            });
-            
-            it("should use a custom style", () => {
-                createListView("item in items", null, { style: "custom" });
-                expect(controller.options.style).toBe("custom");
-            });
-            
-            it("should have no style", () => {
-                createListView("item in items", null, { style: null });
-                expect(controller.options.style).toBe(null);
-            });
-        
-        });
-        
-        
     });
     
     describe("Items", () => {
+        
         
         
     });

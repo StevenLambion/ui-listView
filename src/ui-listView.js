@@ -7,10 +7,10 @@
 angular.module("ui-listView", [
     "ui-listView.templates"
 ]).directive("uiListView", ($rootScope, $parse) => {
-    var arrayRegexp = /^\s*([a-zA-Z0-9]+)\s+(in)\s+([a-zA-Z0-9.]+(\s*[|].*$)?)/; // "item in array [|filterName]"
+    var arrayRegexp = /^\s*([a-zA-Z0-9]+)\s+(?:in)\s+([a-zA-Z0-9.]+(\s*[|].*$)?)/; // "item in array [|filterName]"
     
     var defaultOptions = {
-        style: "default"
+        preferredHeight: 48
     };
     
     /**
@@ -35,8 +35,15 @@ angular.module("ui-listView", [
         constructor ($scope) {
             this.$scope = $scope;
             this.cells = [];
-            this.preferredHeight = 48;
             this._clear();
+            this.setOptions({});
+        }
+        
+        setOptions (options) {
+            this._addDefaultOptions(options);
+            options.listView = this;
+            this.options = options;
+            this.reload();
         }
         
         /**
@@ -229,16 +236,23 @@ angular.module("ui-listView", [
             };
         }
         
+        _addDefaultOptions (options) {
+            for (var key in defaultOptions) {
+                if (!options.hasOwnProperty(key) && defaultOptions.hasOwnProperty(key)) {
+                    options[key] = defaultOptions[key];
+                }
+            }
+        }
+        
         /**
          * Reload the list view from scratch.  The rows will be
          * computed.
          * @param {Object[]} [items] Optionally change the list view's items;
          * @method
-         * @private
          */
-        _reload (items) {
-            this._clear();
-            if (items) {
+        reload (items) {
+            if ((items && items !== this.originalItems) || !this.originalItems) {
+                this._clear();
                 this.originalItems = items;
             } else {
                 items = this.originalItems;
@@ -246,7 +260,6 @@ angular.module("ui-listView", [
             if (this.rows.length > items.length) {
                 this.rows.length = items.length;
             }
-            this.cells.length = items.length;
             this._rebuildRows(items);
         }
         
@@ -282,7 +295,7 @@ angular.module("ui-listView", [
                 row = rows[i];
                 if (!row) {
                     row = rows[i] = {
-                        height: this.preferredHeight,
+                        height: this.options.preferredHeight,
                         offset: offset
                     };
                 } 
@@ -382,32 +395,8 @@ angular.module("ui-listView", [
                     return listView.setViewport(scrollTop, rawElement.clientHeight);
                 }
                 
-                function updateOptions (options, oldOptions) {
-                    if (oldOptions) {
-                        if (oldOptions.style) {
-                            element.removeClass("ui-list-view-" + oldOptions.style);
-                        }
-                    }
-                    if (options.style) {
-                        element.addClass("ui-list-view-" + options.style);
-                    }
-                }
-                
-                function addDefaultOptions (options) {
-                    for (var key in defaultOptions) {
-                        if (!options.hasOwnProperty(key) && defaultOptions.hasOwnProperty(key)) {
-                            options[key] = defaultOptions[key];
-                        }
-                    }
-                }
-                
-                $scope.$watch("options", (options, oldOptions) => {
-                    options = options || {};
-                    addDefaultOptions(options);
-                    options.listView = listView;
-                    listView.options = options;
-                    updateOptions(options, oldOptions);
-                    listView._reload();
+                $scope.$watch("options", (options) => {
+                    listView.setOptions(options || {});
                 });
                 
                 var isScrolling; // For performance, don't retrieve items while the list is scrolling.
@@ -415,7 +404,7 @@ angular.module("ui-listView", [
                 $scope.$watchCollection(() => {
                     return !isScrolling ? arrayGetter($scope.$parent) : listView.originalItems;
                 }, (items) => {
-                    listView._reload(items);
+                    listView.reload(items);
                     updateListView();
                 });
                 
