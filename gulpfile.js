@@ -93,8 +93,7 @@ var tasks = {
     
     test: function (cb) {
         new karma.start({
-            configFile: __dirname + '/karma.conf.js',
-            singleRun: true
+            configFile: __dirname + '/karma.conf.js'
         }, cb);
     }
     

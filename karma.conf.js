@@ -33,6 +33,12 @@ module.exports = function(config) {
       'test/**/*.js': ['babel'],
       'src/**/*.js': ['babel', 'coverage']
     },
+    
+    babelPreprocessor: {
+      options: {
+        sourceMap: 'both'
+      }
+    },
 
 
     // test results reporter to use
@@ -75,6 +81,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   })
 }
