@@ -1,6 +1,6 @@
 ![travis CI status](https://travis-ci.org/StevenLambion/ui-listView.svg?branch=master)
 
-## ui-ListView
+## ui-listView
 An Angular directive for an efficient, dynamically changing list.  It's able to handle data sets with thousands of
 items while providing a similar interface to ng-repeat.  Unlike other variations, row heights are based
 on the row content, and the list view dynamically updates to accommodate changes.
@@ -64,7 +64,7 @@ type: `Object`
 A read-only property that shows the current visible range of items being displayed.  It can be useful to indicate when to load more items
 from a service when implementing infinite scroll.
 
-## styles
+## Styles
 Use the following CSS classes on the ui-listView's element to set built-in styles, or use your own CSS classes for a custom style.
 
 #### ui-list-view-bordered
