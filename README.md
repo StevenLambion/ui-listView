@@ -70,6 +70,9 @@ Use the following CSS classes on the ui-listView's element to set built-in style
 #### ui-list-view-bordered
 Wraps the ui-listView and its cells in a border.
 
+#### ui-list-view-striped
+Adds a striped appearance to the cells.
+
 ## License
 
 The MIT License (MIT)
