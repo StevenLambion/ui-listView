@@ -32,8 +32,7 @@ function safeDigest ($scope) {
  */
 class UIListView {
     
-    constructor ($scope) {
-        this.$scope = $scope;
+    constructor () {
         this.cells = [];
         this.setOptions({});
     }
@@ -82,10 +81,9 @@ class UIListView {
             this._request = request = {
                 startIndex: startIndex
             };
-            this.$scope.$$postDigest(() => {
+            this._callDelegate("throttle", () => {
                 this.updateRowOffsets(request.startIndex);
                 this._request = null;
-                safeDigest(this.$scope);
             });
         }
         request.startIndex = Math.min(request.startIndex, startIndex);
@@ -145,6 +143,7 @@ class UIListView {
             cell.row = row;
             cell.item = rows[i].item;
             cell.index = i;
+            cell.itemIdentifier = this._callDelegate("getItemIdentifier", cell.item);
             if (previousRow) {
                 row.offset = previousRow.offset + previousRow.height;
             }
@@ -354,6 +353,13 @@ class UIListView {
         return mid;
     }
     
+    _callDelegate (methodName, arg1, arg2, arg3) {
+        var delegate = this.delegate;
+        if (delegate) {
+            return delegate[methodName](arg1, arg2, arg3);
+        }
+    }
+    
     /**
       * Call a method on the cell's delegate.
       * @param {sl.ui-listView.Cell} cell
@@ -367,7 +373,7 @@ class UIListView {
     _callCellDelegate (cell, methodName, arg1, arg2, arg3) {
         var delegate = cell.delegate;
         if (delegate) {
-            delegate[methodName](arg1, arg2, arg3);
+            return delegate[methodName](arg1, arg2, arg3);
         }
     }
     
@@ -402,7 +408,19 @@ module.directive("uiListView", ($rootScope, $parse) => {
             
             return function ($scope, element, attrs, listView) {
                 var rawElement = element[0];
-                listView.itemIdentifier = itemIdentifier;
+                
+                listView.delegate = {
+                    
+                    getItemIdentifier () {
+                        return itemIdentifier;
+                    },
+                    
+                    throttle (fn) {
+                        $scope.$$postDigest(fn);
+                        safeDigest($scope);
+                    }
+                    
+                };
                 
                 /**
                  * Update the viewport.

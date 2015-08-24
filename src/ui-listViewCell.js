@@ -37,13 +37,14 @@ angular.module("ui-listView").directive("uiListViewCell", () => {
                 var height = rawElement.clientHeight;
                 var row = cell.row;
                 if (height !== row.height) {
+                    //listView.setRowHeight(row, height);
                     row.height = height;
                     listView.requestOffsetUpdate(row.index);
                 }
             }
             
             function updateRow (row) {
-                transcludeScope[listView.itemIdentifier] = row.item;
+                transcludeScope[cell.itemIdentifier] = row.item;
                 transcludeScope.$index = row.index;
                 transcludeScope.$first = row.index === 0;
                 transcludeScope.$last = row.index === listView.rows.length - 1;

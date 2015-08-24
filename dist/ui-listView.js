@@ -37,14 +37,12 @@ function safeDigest($scope) {
  */
 
 var UIListView = (function () {
-    function UIListView($scope) {
+    function UIListView() {
         _classCallCheck(this, UIListView);
 
-        this.$scope = $scope;
         this.cells = [];
         this.setOptions({});
     }
-    UIListView.$inject = ["$scope"];
 
     /**
      * Set new options for the list view.
@@ -99,10 +97,9 @@ var UIListView = (function () {
                 this._request = request = {
                     startIndex: startIndex
                 };
-                this.$scope.$$postDigest(function () {
+                this._callDelegate("throttle", function () {
                     _this.updateRowOffsets(request.startIndex);
                     _this._request = null;
-                    safeDigest(_this.$scope);
                 });
             }
             request.startIndex = Math.min(request.startIndex, startIndex);
@@ -166,6 +163,7 @@ var UIListView = (function () {
                 cell.row = row;
                 cell.item = rows[i].item;
                 cell.index = i;
+                cell.itemIdentifier = this._callDelegate("getItemIdentifier", cell.item);
                 if (previousRow) {
                     row.offset = previousRow.offset + previousRow.height;
                 }
@@ -396,6 +394,14 @@ var UIListView = (function () {
 
             return mid;
         }
+    }, {
+        key: "_callDelegate",
+        value: function _callDelegate(methodName, arg1, arg2, arg3) {
+            var delegate = this.delegate;
+            if (delegate) {
+                return delegate[methodName](arg1, arg2, arg3);
+            }
+        }
 
         /**
           * Call a method on the cell's delegate.
@@ -412,7 +418,7 @@ var UIListView = (function () {
         value: function _callCellDelegate(cell, methodName, arg1, arg2, arg3) {
             var delegate = cell.delegate;
             if (delegate) {
-                delegate[methodName](arg1, arg2, arg3);
+                return delegate[methodName](arg1, arg2, arg3);
             }
         }
     }]);
@@ -449,7 +455,19 @@ _module.directive("uiListView", ["$rootScope", "$parse", function ($rootScope, $
 
             return function ($scope, element, attrs, listView) {
                 var rawElement = element[0];
-                listView.itemIdentifier = itemIdentifier;
+
+                listView.delegate = {
+
+                    getItemIdentifier: function getItemIdentifier() {
+                        return itemIdentifier;
+                    },
+
+                    throttle: function throttle(fn) {
+                        $scope.$$postDigest(fn);
+                        safeDigest($scope);
+                    }
+
+                };
 
                 /**
                  * Update the viewport.
@@ -581,13 +599,14 @@ angular.module("ui-listView").directive("uiListViewCell", function () {
                 var height = rawElement.clientHeight;
                 var row = cell.row;
                 if (height !== row.height) {
+                    //listView.setRowHeight(row, height);
                     row.height = height;
                     listView.requestOffsetUpdate(row.index);
                 }
             }
 
             function updateRow(row) {
-                transcludeScope[listView.itemIdentifier] = row.item;
+                transcludeScope[cell.itemIdentifier] = row.item;
                 transcludeScope.$index = row.index;
                 transcludeScope.$first = row.index === 0;
                 transcludeScope.$last = row.index === listView.rows.length - 1;
