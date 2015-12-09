@@ -3,7 +3,7 @@
  * @name ui-listView
  * @description
  * Displays a list of items.  Designed to handle large data sets.
- */
+ */c
 var module = angular.module("ui-listView", [
     "ui-listView.templates"
 ]);
@@ -287,6 +287,7 @@ class UIListView {
         if (!this.rows || removeRows) {
             this.rows = [];
         }
+        this.cells = [];
         this.options.range = this.visibleRange = {
             index: 0,
             length: 0
