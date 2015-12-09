@@ -3,7 +3,7 @@
  * @name ui-listView
  * @description
  * Displays a list of items.  Designed to handle large data sets.
- */c
+ */
 var module = angular.module("ui-listView", [
     "ui-listView.templates"
 ]);
