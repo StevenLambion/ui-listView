@@ -287,6 +287,7 @@ class UIListView {
         if (!this.rows || removeRows) {
             this.rows = [];
         }
+        this.cells = [];
         this.options.range = this.visibleRange = {
             index: 0,
             length: 0
